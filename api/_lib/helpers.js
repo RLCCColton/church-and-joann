@@ -32,7 +32,7 @@ async function sendWinnerEmail(name) {
     const payload = {
       from: RESEND_FROM_EMAIL,
       to: [RESEND_TO_EMAIL],
-      subject: "Church & Jo Ann cheesecake winner",
+      subject: "Chuck & Jo Ann cheesecake winner",
       html: `
         <div style="font-family: Georgia, serif; line-height: 1.6;">
           <h1 style="margin-bottom: 12px;">Cheesecake claimed</h1>

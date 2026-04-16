@@ -1,6 +1,6 @@
 const fs = require("node:fs");
 const path = require("node:path");
-const { BlobNotFoundError, get, put, del } = require("@vercel/blob");
+const { BlobNotFoundError, head, put, del } = require("@vercel/blob");
 
 const ROOT = path.join(__dirname, "..", "..");
 const DATA_DIR = path.join(ROOT, "data");
@@ -10,13 +10,15 @@ const BLOB_PATH = "church-and-joann/winner.json";
 async function getWinner() {
   if (process.env.BLOB_READ_WRITE_TOKEN) {
     try {
-      const blob = await get(BLOB_PATH, { access: "private" });
+      const blob = await head(BLOB_PATH);
 
-      if (!blob || !blob.downloadUrl) {
+      const downloadUrl = blob?.downloadUrl || blob?.url;
+
+      if (!downloadUrl) {
         return null;
       }
 
-      const response = await fetch(blob.downloadUrl, {
+      const response = await fetch(downloadUrl, {
         headers: {
           Authorization: `Bearer ${process.env.BLOB_READ_WRITE_TOKEN}`,
         },
@@ -50,6 +52,8 @@ async function createWinner(winner) {
       await put(BLOB_PATH, JSON.stringify(winner, null, 2), {
         access: "private",
         contentType: "application/json",
+        addRandomSuffix: false,
+        allowOverwrite: false,
       });
 
       return { created: true, winner };

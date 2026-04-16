@@ -2,9 +2,9 @@
   "name": "church-and-joann",
   "private": true,
   "version": "1.0.0",
-  "description": "Single-winner cheesecake claim page for Church & Jo Ann.",
+  "description": "Single-winner cheesecake claim page for Chuck & Jo Ann.",
   "dependencies": {
-    "@vercel/blob": "^1.1.1"
+    "@vercel/blob": "^2.3.3"
   },
   "scripts": {
     "dev": "node server.js",

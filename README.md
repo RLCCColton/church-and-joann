@@ -1,4 +1,4 @@
-# Church & Jo Ann Giveaway Page
+# Chuck & Jo Ann Giveaway Page
 
 Small dependency-free Node site for a one-time cheesecake claim.
 

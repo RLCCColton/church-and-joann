@@ -38,6 +38,37 @@
         </section>
 
         <p id="error-message" class="error hidden" role="alert"></p>
+
+        <section class="admin-shell">
+          <button id="admin-toggle" type="button" class="button button-secondary">
+            Admin
+          </button>
+
+          <div id="admin-panel" class="admin-panel hidden">
+            <label for="admin-password" class="label">Admin password</label>
+            <div class="admin-row">
+              <input
+                id="admin-password"
+                type="password"
+                class="input"
+                autocomplete="current-password"
+                placeholder="Enter password"
+              />
+              <button id="admin-login" type="button" class="button button-secondary">
+                Log In
+              </button>
+            </div>
+
+            <div id="admin-actions" class="admin-actions hidden">
+              <p class="admin-copy">Admin mode is on.</p>
+              <button id="admin-reset" type="button" class="button">
+                Reset Claimed
+              </button>
+            </div>
+
+            <p id="admin-error" class="error hidden" role="alert"></p>
+          </div>
+        </section>
       </section>
     </main>
 

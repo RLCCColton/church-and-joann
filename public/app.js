@@ -7,6 +7,15 @@ const messageTitle = document.querySelector("#message-title");
 const messageBody = document.querySelector("#message-body");
 const pageTitle = document.querySelector("#page-title");
 const pageIntro = document.querySelector("#page-intro");
+const adminToggle = document.querySelector("#admin-toggle");
+const adminPanel = document.querySelector("#admin-panel");
+const adminPasswordInput = document.querySelector("#admin-password");
+const adminLoginButton = document.querySelector("#admin-login");
+const adminActions = document.querySelector("#admin-actions");
+const adminResetButton = document.querySelector("#admin-reset");
+const adminError = document.querySelector("#admin-error");
+
+let adminPassword = "";
 
 const successMessage = {
   title: "You found us!",
@@ -26,6 +35,16 @@ function showError(message) {
 function clearError() {
   errorMessage.textContent = "";
   errorMessage.classList.add("hidden");
+}
+
+function showAdminError(message) {
+  adminError.textContent = message;
+  adminError.classList.remove("hidden");
+}
+
+function clearAdminError() {
+  adminError.textContent = "";
+  adminError.classList.add("hidden");
 }
 
 function applyClosedState() {
@@ -49,6 +68,14 @@ function showMessage(message) {
   messagePanel.classList.remove("hidden");
 }
 
+function applyOpenState() {
+  pageTitle.textContent = "Chuck & Jo Ann sent you here.";
+  pageIntro.textContent =
+    "Enter your name below to claim the prize if you found the hidden sign.";
+  form.classList.remove("hidden");
+  messagePanel.classList.add("hidden");
+}
+
 async function loadStatus() {
   try {
     const response = await fetch("/api/status");
@@ -64,6 +91,57 @@ async function loadStatus() {
     console.error("Unable to load status", error);
   }
 }
+
+adminToggle.addEventListener("click", () => {
+  adminPanel.classList.toggle("hidden");
+  clearAdminError();
+});
+
+adminLoginButton.addEventListener("click", () => {
+  clearAdminError();
+
+  const password = adminPasswordInput.value;
+  if (password !== "Golf2026") {
+    showAdminError("Incorrect password.");
+    return;
+  }
+
+  adminPassword = password;
+  adminPasswordInput.value = "";
+  adminActions.classList.remove("hidden");
+});
+
+adminResetButton.addEventListener("click", async () => {
+  clearAdminError();
+  adminResetButton.disabled = true;
+  adminResetButton.textContent = "Resetting...";
+
+  try {
+    const response = await fetch("/api/reset", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ password: adminPassword }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      showAdminError(data.error || "Could not reset the claim.");
+      return;
+    }
+
+    applyOpenState();
+    nameInput.value = "";
+  } catch (error) {
+    console.error("Reset failed", error);
+    showAdminError("Could not reset the claim.");
+  } finally {
+    adminResetButton.disabled = false;
+    adminResetButton.textContent = "Reset Claimed";
+  }
+});
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();

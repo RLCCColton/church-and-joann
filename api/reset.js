@@ -1,5 +1,7 @@
 const { resetWinner } = require("./_lib/winner-store");
 
+const ADMIN_PASSWORD = "Golf2026";
+
 module.exports = async function handler(request, response) {
   if (request.method !== "POST") {
     response.status(405).json({ error: "Method not allowed." });
@@ -7,10 +9,11 @@ module.exports = async function handler(request, response) {
   }
 
   try {
-    const token = typeof request.body?.token === "string" ? request.body.token : "";
+    const password =
+      typeof request.body?.password === "string" ? request.body.password : "";
 
-    if (!process.env.RESET_TOKEN || token !== process.env.RESET_TOKEN) {
-      response.status(401).json({ error: "Invalid reset token." });
+    if (password !== ADMIN_PASSWORD) {
+      response.status(401).json({ error: "Invalid admin password." });
       return;
     }
 

@@ -137,6 +137,41 @@ h1 {
   line-height: 1.5;
 }
 
+.admin-shell {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(50, 37, 27, 0.1);
+}
+
+.admin-panel {
+  margin-top: 16px;
+  padding: 18px;
+  border-radius: 20px;
+  background: rgba(50, 37, 27, 0.04);
+}
+
+.admin-row {
+  display: grid;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.admin-actions {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.admin-copy {
+  margin: 0;
+  color: var(--muted);
+}
+
+.button-secondary {
+  background: linear-gradient(135deg, #8a7158, #5e4937);
+  box-shadow: 0 16px 32px rgba(68, 49, 33, 0.2);
+}
+
 .hidden {
   display: none;
 }

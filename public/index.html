@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Church &amp; Jo Ann Cheesecake</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="card">
+        <p class="eyebrow">Homemade Cheesecake Prize</p>
+        <h1 id="page-title">Church &amp; Jo Ann sent you here.</h1>
+        <p id="page-intro" class="intro">
+          Enter your name below to claim the prize if you found the hidden sign.
+        </p>
+
+        <form id="claim-form" class="claim-form">
+          <label for="name" class="label">Your name</label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            class="input"
+            autocomplete="name"
+            maxlength="120"
+            placeholder="Type your name"
+            required
+          />
+          <button id="submit-button" type="submit" class="button">
+            Submit
+          </button>
+        </form>
+
+        <section id="message-panel" class="message-panel hidden" aria-live="polite">
+          <h2 id="message-title"></h2>
+          <p id="message-body"></p>
+        </section>
+
+        <p id="error-message" class="error hidden" role="alert"></p>
+      </section>
+    </main>
+
+    <script src="/app.js" defer></script>
+  </body>
+</html>
